@@ -1,0 +1,25 @@
+<odoo>
+    <record id="apartment_sell_manager_01" model="res.partner">
+        <field name="name">El Mahsini Aimen</field>
+        <field name="email">56149@etu.he2b.be</field>
+        <field name="password">56172</field>
+    </record>
+
+    <record id="apartment_sell_manager_02" model="res.partner">
+        <field name="name">El Khamlichi Ayoub</field>
+        <field name="email">55840@etu.he2b.be</field>
+        <field name="password">55840</field>
+    </record>
+
+    <record id="apartment_sell_manager_03" model="res.partner">
+        <field name="name">Massimo Russo</field>
+        <field name="email">57034@etu.he2b.be</field>
+        <field name="password">57034</field>
+    </record>
+
+    <record id="apartment_sell_manager_04" model="res.partner">
+        <field name="name">Aurélian Henin</field>
+        <field name="email">56870@etu.he2b.be</field>
+        <field name="password">56870</field>
+    </record>
+</odoo>
