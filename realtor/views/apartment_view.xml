@@ -38,20 +38,4 @@
             </tree>
         </field>
     </record>
-    <!-- <record model="ir.ui.view" id="todotask_search_view">
-        <field name="name">apartment.search</field>
-        <field name="priority">15</field>
-        <field name="model">appartemet</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name" />
-                <filter name="task_not_done" string="Task Not Done" domain="[('done','!=',True)]" />
-                <filter name="task_done" string="Task Done" domain="[('done','=',True)]" />
-                <filter name="task_not_active" string="Task Not Active" domain="[('active','=',False)]" />
-                <group string="Group by">
-                    <filter name="by_responsible" string="Responsible" context="{'group_by':'user_id'}"/>
-                </group>
-            </search>
-        </field>
-    </record> -->
 </odoo>

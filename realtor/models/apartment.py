@@ -15,8 +15,7 @@ class Apartment(models.Model):
     price = fields.Float('Price')
     apartment_surface = fields.Integer('Apartment surface')
     terrace_surface = fields.Integer('Terrace surface')
-    total_surface = fields.Integer('Total surface')
-    # best_offerer = fields.Many2one('res.users', string='Best offerer', ondelete='set null')
+    total_surface = fields.Integer('Total surface',readonly="1")
     best_offerer = fields.Many2one(
         'res.partner', string='Best offerer', ondelete='set null')
     best_price_offer = fields.Float('Best price offer')
