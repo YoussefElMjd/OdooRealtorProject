@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %}MProject{% endblock title %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap
+.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.
+js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/po
+pper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.m
+in.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="p-3 bg-primary">
+        <h1 class="display-1">Realtor-Client</h1>
+        <h2>Un site web d'achat d'appartement</h2>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark bordertop border-white">
+        <ul class="navbar-nav">
+            {% for name in request.resolver_match.app_names %}            
+            {%if name == 'home' %}
+            <li id="nav-home" class="nav-item active">
+            {%else%}
+            <li id="nav-home" class="nav-item">
+            {%endif%}
+            {%endfor%}
+        </ul>
+    </nav>
+    {% block content %}
+    {% endblock content %}
+</body>
+
+</html>
