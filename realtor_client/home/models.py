@@ -12,10 +12,46 @@ class OdooUser(models.Model):
     # REQUIRED_FIELDS=['first_name', 'last_name', 'email'] 
 
 
+url = "http://localhost:8069"
+db = "dev01"
+uid = ""
+username = ""
+password= ""
+def get_apartment(username, password): 
+    common = xmlrpc.client.ServerProxy(
+        '{}/xmlrpc/2/common'.format(url)
+    )   
+    uid = common.authenticate(db, username, password, {})
+    models = xmlrpc.client.ServerProxy(
+    '{}/xmlrpc/2/object'.format(url)
+    )
+    allApartment = models.execute_kw(db, uid, password, 'apartment.sell', 'search_read', [])
+    x = range(0, len(allApartment))
+    if len(allApartment) > 0:
+        for i in x:
+                # print("\n")
+                # print(allApartment[i]['name'])
+                # print(allApartment[i]['availability'])
+                # print(allApartment[i]['description'])
+                # print(allApartment[i]['price'])
+                # print(allApartment[i]['apartment_surface'])
+                # print(allApartment[i]['terrace_surface'])
+                # print(allApartment[i]['total_surface'])
+                # print(allApartment[i]['best_offerer'])
+                # print(allApartment[i]['best_price_offer'])
+                product = models.execute_kw(db, uid, password, 'product.template', 'search_read', [[('idApart', '=', allApartment[i]['name'])]])
+                if len(product) > 0:
+                    allApartment[i]['qty_available'] = product[0]['qty_available']
+                    print(allApartment[i]['qty_available'])
+                    # print(product[0]['qty_available'])
+                else:
+                    allApartment[i]['qty_available'] = 0
+                    print(allApartment[i]['qty_available'])
+                    # print("No product available")
+        return allApartment
 
+    
 def authenticate(request):
-    url = "http://localhost:8069"
-    db = "dev01"
     common = xmlrpc.client.ServerProxy(
         '{}/xmlrpc/2/common'.format(url)
     )   
@@ -31,30 +67,14 @@ def authenticate(request):
     hasRightProduct = models.execute_kw(db, uid, password, 'product.template', 'check_access_rights', [
     'read'], {'raise_exception': False})
     if uid:
-        print("LETSSSSSSS GOOOOOOOOOOOOOOOOOOOOOOOOO")
-
-        print(uid)
-        if hasRightProduct & hasRightApart:
-            apartment = models.execute_kw(db, uid, password, 'apartment.sell', 'search_read', [[('name', '=', 'Apartment 4')]])
-            product = models.execute_kw(db, uid, password, 'product.template', 'search_read', [[('idApart', '=', 'Apartment 4')]])
-            if len(apartment) > 0:
-                print(apartment[0]['name'])
-                print(apartment[0]['availability'])
-                print(apartment[0]['description'])
-                print(apartment[0]['price'])
-                print(apartment[0]['apartment_surface'])
-                print(apartment[0]['terrace_surface'])
-                print(apartment[0]['total_surface'])
-                print(apartment[0]['best_offerer'])
-                print(apartment[0]['best_price_offer'])
-                if len(product) > 0:
-                    print(product[0]['qty_available'])
-                else:
-                    print("No product available")
+        if(hasRightApart & hasRightProduct):
+            print("LETSSSSSSS GOOOOOOOOOOOOOOOOOOOOOOOOO")
+            get_apartment(username,password)
         return HttpResponseRedirect("/")
     else:
         print(" DONT LETSSSSSSS GOOOOOOOOOOOOOOOOOOOOOOOOO")
         return HttpResponseRedirect("/")
+
 
 def create(request):
     # form = OdooUserForm(request.POST)
