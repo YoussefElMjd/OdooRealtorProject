@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 import xmlrpc.client
+from django.shortcuts import render
 
 class OdooUser(models.Model):  
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -17,7 +18,7 @@ db = "dev01"
 uid = ""
 username = ""
 password= ""
-def get_apartment(username, password): 
+def get_apartment(request,username, password): 
     common = xmlrpc.client.ServerProxy(
         '{}/xmlrpc/2/common'.format(url)
     )   
@@ -48,7 +49,7 @@ def get_apartment(username, password):
                     allApartment[i]['qty_available'] = 0
                     print(allApartment[i]['qty_available'])
                     # print("No product available")
-        return allApartment
+        return render(request, 'home/apartment.html', {'apartments': allApartment})
 
     
 def authenticate(request):
@@ -70,7 +71,6 @@ def authenticate(request):
         if(hasRightApart & hasRightProduct):
             print("LETSSSSSSS GOOOOOOOOOOOOOOOOOOOOOOOOO")
             get_apartment(username,password)
-        return HttpResponseRedirect("/")
     else:
         print(" DONT LETSSSSSSS GOOOOOOOOOOOOOOOOOOOOOOOOO")
         return HttpResponseRedirect("/")
