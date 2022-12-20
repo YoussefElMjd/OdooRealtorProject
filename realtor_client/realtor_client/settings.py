@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
-
+    'odoo_auth',
     'crispy_forms',
     "crispy_bootstrap5",
 ]
@@ -133,3 +133,10 @@ AUTH_USER_MODEL = 'home.Client'
 LOGIN_REDIRECT_URL = 'home:home'
 LOGOUT_REDIRECT_URL = 'home:home'
 
+AUTHENTICATION_BACKENDS = (
+    'odoo_auth.backends.OdooBackend',
+)
+
+ODOO_SERVER_URL = 'http://localhost'
+ODOO_SERVER_PORT = 8069 # this optional
+ODOO_SERVER_DBNAME = 'dev02'
