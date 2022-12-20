@@ -17,7 +17,7 @@ url = "http://localhost:8069"
 db = "dev01"
 
 
-def get_apartment(): 
+def get_apartment(request): 
     allApartment = models.execute_kw(db, uid, passw, 'apartment.sell', 'search_read', [])
     x = range(0, len(allApartment))
     if len(allApartment) > 0:
@@ -32,6 +32,7 @@ def get_apartment():
                 # print(allApartment[i]['total_surface'])
                 # print(allApartment[i]['best_offerer'])
                 # print(allApartment[i]['best_price_offer'])
+                allApartment[i]['best_offerer'] = allApartment[i]['best_offerer'][1]
                 product = models.execute_kw(db, uid, passw, 'product.template', 'search_read', [[('idApart', '=', allApartment[i]['name'])]])
                 if len(product) > 0:
                     allApartment[i]['qty_available'] = product[0]['qty_available']
@@ -41,7 +42,7 @@ def get_apartment():
                     allApartment[i]['qty_available'] = 0
                     print(allApartment[i]['qty_available'])
                     # print("No product available")
-        return render('home/apartment.html', {'apartments': allApartment})
+        return allApartment
 
 def set_offer(request):
     print(user)
@@ -70,7 +71,8 @@ def authenticate(request):
     if uid:
         if(hasRightApart & hasRightProduct):
             print("LETSSSSSSS GOOOOOOOOOOOOOOOOOOOOOOOOO")
-            get_apartment()
+            allApartment = get_apartment(request)
+            return render(request,'home/apartment.html', {'apartments': allApartment})
     else:
         print(" DONT LETSSSSSSS GOOOOOOOOOOOOOOOOOOOOOOOOO")
         return HttpResponseRedirect("/")

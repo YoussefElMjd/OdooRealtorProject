@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+
+{% block content %}
+  <div class="p-1 m-3 bg-light">
+      <p class="float-right"><a href={% url 'logout' %}><i class="fa fa-sign-out"></i></a></p>
+      <h1>
+          {{ odooUsers.email }}
+      </h1>
+  </div>
+    <h1>Bienvenue sur Realtor-Client</h1>
+    <div class="d-flex p-2">
+    {% for apart in apartments %}
+        <div class="card bg-primary m-2 p-1 rounded-lg" style="width:300px">
+            <div class="card-header">
+                Name : {{ apart.name }}
+            </div>
+            <div class="card-body">
+                availability : {{ apart.availability }}<br> description : {{ apart.description }} <br>
+                price : {{ apart.price }}<br> apartment surface : {{ apart.apartment_surface }}<br> terrace surface : {{ apart.terrace_surface }} 
+                <br> total surface : {{ apart.total_surface }} <br>best offerer : {{ apart.best_offerer }} <br>best price offer : {{ apart.best_price_offer }}
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="amount" aria-label="Offer" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-secondary" type="button">offer</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock content%}
