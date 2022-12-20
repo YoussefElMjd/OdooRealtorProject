@@ -45,8 +45,12 @@ def get_apartment(request):
         return allApartment
 
 def set_offer(request):
+
     print(user)
     print(passw)
+    # models.execute_kw(db, uid, passw, 'apartment.sell', 'write', [['name'], {
+    #     best_offer_Apartment[i]['name']
+    # }])
     return HttpResponseRedirect('/')
     
 def authenticate(request):
