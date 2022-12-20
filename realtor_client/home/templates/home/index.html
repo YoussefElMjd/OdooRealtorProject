@@ -1,17 +1,13 @@
 {% extends "_base.html" %}
 
 {% block content %}
-{% if user.is_authenticated %}
   <div class="p-1 m-3 bg-light">
       <p class="float-right"><a href={% url 'logout' %}><i class="fa fa-sign-out"></i></a></p>
       <h1>
-          {{ user.username }}
+          {{ odooUsers.email }}
       </h1>
   </div>
-
-{% else %}
     <h1>Bienvenue sur Realtor-Client</h1>
-    <a href={% url 'login' %}>Log in</a>
-{% endif %}
+    <a href={% url 'home:login' %}>Log in</a>
 {% include '_create_client_modal.html' %}
 {% endblock content%}
