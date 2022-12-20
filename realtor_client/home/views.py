@@ -8,7 +8,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView
 from django.contrib.auth import login
-from django.contrib import messages
 
 
 class HomeView(TemplateView):
@@ -22,10 +21,14 @@ class HomeView(TemplateView):
 
 def create(request):
     form = ClientForm(request.POST)
-    if form.is_valid():
-        user = form.save()
-        login(request, user)
-        messages.success(request, "Registration successful." )
-        return HttpResponseRedirect("/")
-    messages.error(request, "Registration unsuccessful." )
+    #if form.is_valid():
+	  #  user = form.save()
+     #   login(request, user)
+    client = Client.objects.create(
+        username=request.POST['username'],
+        first_name=request.POST['first_name'],
+        last_name=request.POST['last_name'],
+        email=request.POST['email'],
+        )
+    client.set_password(request.POST["password1"])
     return HttpResponseRedirect("/")

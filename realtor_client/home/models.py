@@ -8,4 +8,8 @@ class Client(AbstractUser):
 
     REQUIRED_FIELDS=['first_name', 'last_name', 'email'] 
 
+    def save(self, *args, **kwargs):
+          self.set_password(self.password)
+          super().save(*args, **kwargs)
+
 
