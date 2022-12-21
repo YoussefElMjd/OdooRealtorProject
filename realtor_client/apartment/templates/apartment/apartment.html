@@ -6,16 +6,16 @@
     {% for apart in apartments %}
         <div class="card bg-primary m-2 p-1 rounded-lg" style="width:300px">
             <div class="card-header">
-                Name : {{ apart.name }}
+                <img class="img-thumbnail" src="data:image/jpg;base64,{{apart.image}}"> <br> Name : {{ apart.name }}
             </div>
             <div class="card-body">
                 availability : {{ apart.availability }}<br> description : {{ apart.description }} <br>
                 price : {{ apart.price }}<br> apartment surface : {{ apart.apartment_surface }}<br> terrace surface : {{ apart.terrace_surface }} 
                 <br> total surface : {{ apart.total_surface }} <br>best offerer : {{ apart.best_offerer }} <br>best price offer : {{ apart.best_price_offer }}
-                <br> Quantity : {{ apart.qty_available }}
+                <br> Quantity : {{ apart.qty_available }} 
             </div>
             <div class="input-group mb-3">
-                <form action={% url 'home:offer' %} method="post">
+                <form action={% url 'apartment:offer' %} method="post">
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="col">
