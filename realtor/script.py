@@ -56,6 +56,8 @@ if hasRightProduct & hasRightApart:
                 Search = False
         else:
             print("No apartment available with this name")
+    else:
+        print("You need to enter Yes or No")
 
 if hasRightApart == False:
     print("You don't have access to Apartment")
