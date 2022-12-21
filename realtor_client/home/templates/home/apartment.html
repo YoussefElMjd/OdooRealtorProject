@@ -30,6 +30,9 @@
                           <input name="amount" type="number" class="form-control" placeholder="amount">
                         </div>
                         <div class="col">
+                            <input type="hidden" name="connected" value="True">
+                            <input type="hidden" name="apartment" value={{ apart.id }}>
+                            <input type="hidden" name="best_offer" value={{ apart.best_price_offer }}>
                             <button class="btn btn-secondary" type="submit">offer</button>
                         </div>
                       </div>
@@ -37,5 +40,8 @@
             </div>
         </div>
     {% endfor %}
+    </div>
+    <div >
+        <h3 class="text-danger">{{error}}</h3>
     </div>
 {% endblock content%}
