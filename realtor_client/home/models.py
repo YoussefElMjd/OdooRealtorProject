@@ -36,11 +36,11 @@ def get_apartment(request):
                 product = models.execute_kw(db, uid, passw, 'product.template', 'search_read', [[('idApart', '=', allApartment[i]['name'])]])
                 if len(product) > 0:
                     allApartment[i]['qty_available'] = product[0]['qty_available']
-                    print(allApartment[i]['qty_available'])
+                    #print(allApartment[i]['qty_available'])
                     # print(product[0]['qty_available'])
                 else:
                     allApartment[i]['qty_available'] = 0
-                    print(allApartment[i]['qty_available'])
+                    #print(allApartment[i]['qty_available'])
                     # print("No product available")
         return allApartment
 
@@ -51,6 +51,13 @@ def set_offer(request):
     # models.execute_kw(db, uid, passw, 'apartment.sell', 'write', [['name'], {
     #     best_offer_Apartment[i]['name']
     # }])
+    print(request.POST["offerer"])
+    print(request.POST["amount"])
+    value = models.execute_kw(db, uid, passw, 'res.partner', 'search_read', [[('name', '=', request.POST["offerer"])]])
+    if value :
+        print("j'existe")
+    else :
+        print("j'existe pas")
     return HttpResponseRedirect('/')
     
 def authenticate(request):

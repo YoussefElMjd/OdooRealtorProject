@@ -5,8 +5,7 @@
 {% block content %}
 <div class="container-sm p-3 mt-2 bg-light text-primary">
 <h2>Log in</h2>
-<form IndexView.as_view()
-action={% url 'home:loginAuth' %} method="post">
+<form action={% url 'home:loginAuth' %} method="post">
     {% csrf_token %}
     {{ form|crispy }}
     

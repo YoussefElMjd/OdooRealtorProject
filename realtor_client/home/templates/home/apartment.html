@@ -20,11 +20,20 @@
                 <br> total surface : {{ apart.total_surface }} <br>best offerer : {{ apart.best_offerer }} <br>best price offer : {{ apart.best_price_offer }}
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="offerer" aria-label="offerer" aria-describedby="basic-addon2">
-                <input type="number" class="form-control" placeholder="amount" aria-label="amount" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-secondary" type="button">offer</button>
-                </div>
+                <form action={% url 'home:offer' %} method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col">
+                          <input name="offerer" type="text" class="form-control" placeholder="offerer">
+                        </div>
+                        <div class="col-5">
+                          <input name="amount" type="number" class="form-control" placeholder="amount">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-secondary" type="submit">offer</button>
+                        </div>
+                      </div>
+                </form>
             </div>
         </div>
     {% endfor %}
