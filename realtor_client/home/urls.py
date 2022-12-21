@@ -11,6 +11,4 @@ urlpatterns = [
     path('login', LoginView.as_view(), name="login"),
     path('loginAuth', models.authenticate, name="loginAuth"),
     path('offer', models.set_offer, name="offer"),
-    path('all',models.get_All_Offer,name="alloffer")
-
 ]

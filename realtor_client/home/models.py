@@ -5,17 +5,13 @@ import xmlrpc.client
 from django.shortcuts import render
 
 class OdooUser(models.Model):  
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    odoo_id = models.BigIntegerField(primary_key=True)
     email = models.EmailField(max_length=256)
     password = models.CharField(max_length=256)
-
-    # REQUIRED_FIELDS=['first_name', 'last_name', 'email'] 
 
 
 url = "http://localhost:8069"
 db = "dev01"
-connected = False
+
 
 def get_apartment(): 
     allApartment = models.execute_kw(db, uid, passw, 'apartment.sell', 'search_read', [])
@@ -32,11 +28,8 @@ def get_apartment():
 
 def set_offer(request):
     value = models.execute_kw(db, uid, passw, 'res.partner', 'search_read', [[('name', '=', request.POST["offerer"])]])
-    if value :
-        print("j'existe")
-    else :
+    if not value :
         create(request.POST["offerer"])
-        print("j'existe pas")
 
     if float(request.POST["amount"]) > float(request.POST["best_offer"]):
         print("old offer " + request.POST["best_offer"])
@@ -72,7 +65,6 @@ def authenticate(request):
         ['read'], {'raise_exception': False})
         if uid:
             if(hasRightApart & hasRightProduct):
-                connected = True
                 allApartment = get_apartment()
                 return render(request,'home/apartment.html', {'apartments': allApartment})
         else:
@@ -82,11 +74,6 @@ def authenticate(request):
 
 def create(name):
     models.execute_kw(db,uid,passw, 'res.partner', 'create', [{'name' : name}])
-
-
-def get_All_Offer(request):
-    all_offer = models.execute_kw(db,uid,passw,'res.partner','search_read', [[]])
-    print(all_offer)
 
 def get_offer_by_name(name):
     return models.execute_kw(db,uid,passw,'res.partner','search_read', [[('name', '=', name)]])
