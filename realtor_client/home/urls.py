@@ -1,7 +1,6 @@
 from django.urls import path
 
 from .views import HomeView, LoginView
-from . import models
 
 app_name = 'home'
 

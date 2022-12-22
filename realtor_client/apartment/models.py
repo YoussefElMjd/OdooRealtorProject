@@ -1,12 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 import xmlrpc.client
 from django.shortcuts import render
-
-url = "http://localhost:8069"
-db = "dev01"
-
 
 def get_apartment(): 
     allApartment = models.execute_kw(db, uid, passw, 'apartment.sell', 'search_read', [])
@@ -43,13 +38,17 @@ def authenticate(request):
         global user
         global passw
         global uid
+        global url
+        global db
         global common
         global models
+        url = request.POST['url']
         common = xmlrpc.client.ServerProxy(
             '{}/xmlrpc/2/common'.format(url)
         )   
         user = request.POST['email']
         passw = request.POST['password']
+        db = request.POST['db']
         uid = common.authenticate(db, user, passw, {})
         models = xmlrpc.client.ServerProxy(
         '{}/xmlrpc/2/object'.format(url)
