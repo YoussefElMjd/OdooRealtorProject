@@ -9,7 +9,8 @@ def get_apartment():
     if len(allApartment) > 0:
         for i in x:
                 allApartment[i]['best_offerer'] = allApartment[i]['best_offerer'][1]
-                product = models.execute_kw(db, uid, passw, 'product.template', 'search_read', [[('idApart', '=', allApartment[i]['name'])]])
+                product = models.execute_kw(db, uid, passw, 'product.template', 'search_read',
+                 [[('idApart', '=', allApartment[i]['name'])]])
                 if len(product) > 0:
                     allApartment[i]['qty_available'] = product[0]['qty_available']
                 else:
@@ -22,8 +23,6 @@ def set_offer(request):
         create(request.POST["offerer"])
 
     if float(request.POST["amount"]) > float(request.POST["best_offer"]):
-        print("old offer " + request.POST["best_offer"])
-        print("old offer " + request.POST["best_offer"])
         offer = get_offer_by_name(request.POST["offerer"])
         models.execute_kw(db, uid, passw, 'apartment.sell','write',[[int(request.POST["apartment"])],
     {'best_offerer' : offer[0]['id'],
